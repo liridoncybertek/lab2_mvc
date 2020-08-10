@@ -1,11 +1,8 @@
 package com.cybertek.lab2_mvc.service;
 
 import com.cybertek.lab2_mvc.model.Product;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -96,8 +93,8 @@ public class ProductDAO {
         products.add(new Product(System.currentTimeMillis(), "T-Shirt", 10, new BigDecimal("29.9"), "New collection of t-shirts are arrived.", categoryDAO.readByName("Clothes")));
         products.add(new Product(System.currentTimeMillis(), "Apple Iphone 11 Pro Max", 100, new BigDecimal("699"), "Newest iphone is coming", categoryDAO.readByName("Phones")));
         products.add(new Product(System.currentTimeMillis(), "MacBook Pro", 5, new BigDecimal("1499"), "MacBook pro 13 inch", categoryDAO.readByName("Technology")));
-        products.add(new Product(System.currentTimeMillis(), "Lego Game", 15, new BigDecimal("14.5"), "MacBook pro 13 inch", categoryDAO.readByName("Toys")));
-        products.add(new Product(System.currentTimeMillis(), "Fishing Reel", 150, new BigDecimal("1.77"), "MacBook pro 13 inch", categoryDAO.readByName("Sports")));
+        products.add(new Product(System.currentTimeMillis(), "Lego Game", 15, new BigDecimal("14.5"), "Lego Game", categoryDAO.readByName("Toys")));
+        products.add(new Product(System.currentTimeMillis(), "Fishing Reel", 150, new BigDecimal("1.77"), "Fishing reel", categoryDAO.readByName("Sports")));
     }
 
 }

@@ -1,0 +1,22 @@
+.site-footer
+{
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    padding:20px 0 20px;
+    background-color:#343a40;
+    color:#737373;
+    font-size:15px;
+    line-height:24px;
+
+}
+
+.site-footer a:hover {
+    color: #0062ff;
+    text-decoration: none;
+}
+.copyright-text
+{
+    text-align: center;
+    margin:0
+}
