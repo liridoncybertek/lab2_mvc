@@ -1,5 +1,6 @@
 package com.cybertek.lab2_mvc.controller;
 
+import com.cybertek.lab2_mvc.model.Category;
 import com.cybertek.lab2_mvc.model.Product;
 import com.cybertek.lab2_mvc.service.CategoryDAO;
 import com.cybertek.lab2_mvc.service.ProductDAO;
@@ -61,10 +62,8 @@ public class ProductController {
      */
     @PostMapping("/create-product")
     public String createProduct(@ModelAttribute("product") Product product, Model model) {
-        System.out.println("product is: " + product);
-        System.out.println("product is: " + model);
-//        productDAO.create(product);
-//        model.addAttribute("products", productDAO.readAllProducts());
+        productDAO.create(product);
+        model.addAttribute("products", productDAO.readAllProducts());
         return "redirect:/";
     }
 
@@ -102,9 +101,9 @@ public class ProductController {
      * @param model   model
      * @return updatedProduct.
      */
-    @PutMapping("/update-product")
+    @PostMapping("/update-product")
     public String updateProduct(@RequestParam("id") Integer id, @ModelAttribute("product") Product product, Model model) {
-        productDAO.update(product.getId(), product);
+        productDAO.update(id, product);
         model.addAttribute("products", productDAO.readAllProducts());
         return "redirect:/";
     }

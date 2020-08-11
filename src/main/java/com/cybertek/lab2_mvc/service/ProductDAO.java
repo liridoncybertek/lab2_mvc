@@ -60,6 +60,7 @@ public class ProductDAO {
         int size = products.size();
         int id = products.get(size - 1).getId() + 1;
         product.setId(id);
+        product.setCategory(categoryDAO.readById(product.getCategoryId()));
         products.add(product);
         sortProducts();
         return product;
@@ -79,6 +80,7 @@ public class ProductDAO {
                 .findFirst();
         if (foundProduct.isPresent()) {
             product.setId(foundProduct.get().getId());
+            product.setCategory(categoryDAO.readById(product.getCategoryId()));
             products.remove(foundProduct.get());
             products.add(product);
             sortProducts();
@@ -98,11 +100,11 @@ public class ProductDAO {
 
     private void fillData() {
         products = new ArrayList<>();
-        products.add(new Product(1, "T-Shirt", 10, new BigDecimal("29.9"), "New collection of t-shirts are arrived.", categoryDAO.readByName("Clothes")));
-        products.add(new Product(2, "Apple Iphone 11 Pro Max", 100, new BigDecimal("699"), "Newest iphone is coming", categoryDAO.readByName("Phones")));
-        products.add(new Product(3, "MacBook Pro", 5, new BigDecimal("1499"), "MacBook pro 13 inch", categoryDAO.readByName("Technology")));
-        products.add(new Product(4, "Lego Game", 15, new BigDecimal("14.5"), "Lego Game", categoryDAO.readByName("Toys")));
-        products.add(new Product(5, "Fishing Reel", 150, new BigDecimal("1.77"), "Fishing reel", categoryDAO.readByName("Sports")));
+        products.add(new Product(1, "T-Shirt", 10, new BigDecimal("29.9"), "New collection of t-shirts are arrived.", categoryDAO.readByName("Clothes"), categoryDAO.readByName("Clothes").getId()));
+        products.add(new Product(2, "Apple Iphone 11 Pro Max", 100, new BigDecimal("699"), "Newest iphone is coming", categoryDAO.readByName("Phones"),  categoryDAO.readByName("Phones").getId()));
+        products.add(new Product(3, "MacBook Pro", 5, new BigDecimal("1499"), "MacBook pro 13 inch", categoryDAO.readByName("Technology"), categoryDAO.readByName("Technology").getId()));
+        products.add(new Product(4, "Lego Game", 15, new BigDecimal("14.5"), "Lego Game", categoryDAO.readByName("Toys"), categoryDAO.readByName("Toys").getId()));
+        products.add(new Product(5, "Fishing Reel", 150, new BigDecimal("1.77"), "Fishing reel", categoryDAO.readByName("Sports"), categoryDAO.readByName("Sports").getId()));
         sortProducts();
     }
 
