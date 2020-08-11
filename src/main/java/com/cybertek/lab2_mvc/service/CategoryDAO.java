@@ -2,12 +2,12 @@ package com.cybertek.lab2_mvc.service;
 
 import com.cybertek.lab2_mvc.model.Category;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Component
 public class CategoryDAO {
@@ -16,11 +16,18 @@ public class CategoryDAO {
 
     {
         categories = new ArrayList<>();
-        categories.add(new Category(System.currentTimeMillis(), "Clothes", "All clothes for men and women"));
-        categories.add(new Category(System.currentTimeMillis(), "Phones", "All phones"));
-        categories.add(new Category(System.currentTimeMillis(), "Technology", "All technology stuff"));
-        categories.add(new Category(System.currentTimeMillis(), "Toys", "Toys for kids and more"));
-        categories.add(new Category(System.currentTimeMillis(), "Sports", "All sports needed stuff"));
+        categories.add(new Category(1, "Clothes", "All clothes for men and women"));
+        categories.add(new Category(2, "Phones", "All phones"));
+        categories.add(new Category(3, "Technology", "All technology stuff"));
+        categories.add(new Category(4, "Toys", "Toys for kids and more"));
+        categories.add(new Category(5, "Sports", "All sports needed stuff"));
+        sortCategories();
+    }
+
+    private void sortCategories() {
+        categories = categories.stream()
+                .sorted(Comparator.comparing(Category::getId))
+                .collect(Collectors.toList());
     }
 
     /**
@@ -29,6 +36,7 @@ public class CategoryDAO {
      * @return categories {@link List<Category>}
      */
     public List<Category> readAllCategories() {
+        sortCategories();
         return categories;
     }
 
@@ -39,7 +47,7 @@ public class CategoryDAO {
      * @param id category id
      * @return category object for given id {@link Category}
      */
-    public Category readById(Long id) {
+    public Category readById(Integer id) {
         return categories.stream()
                 .filter(category -> category.getId().equals(id))
                 .findFirst().orElse(null);
@@ -59,8 +67,11 @@ public class CategoryDAO {
      * @return category {@link Category}
      */
     public Category create(Category category) {
-        category.setId(System.currentTimeMillis());
+        int size = categories.size();
+        int id = categories.get(size - 1).getId() + 1;
+        category.setId(id);
         categories.add(category);
+        sortCategories();
         return category;
     }
 
@@ -72,7 +83,7 @@ public class CategoryDAO {
      * @param category category
      * @return category object with id
      */
-    public Category update(Long id, Category category) {
+    public Category update(Integer id, Category category) {
         Optional<Category> foundCategory = categories.stream()
                 .filter(cat -> cat.getId().equals(id))
                 .findFirst();
@@ -80,6 +91,7 @@ public class CategoryDAO {
             category.setId(foundCategory.get().getId());
             categories.remove(foundCategory.get());
             categories.add(category);
+            sortCategories();
             return category;
         }
         return null;
@@ -90,7 +102,7 @@ public class CategoryDAO {
      *
      * @param id the category id
      */
-    public void delete(Long id) {
+    public void delete(Integer id) {
         categories.removeIf(category -> category.getId().equals(id));
     }
 

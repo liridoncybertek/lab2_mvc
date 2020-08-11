@@ -1,3 +1,83 @@
-h4 {
-    color: red;
+.products-wrapper  {
+    width: 100%;
+    float: left;
+    position: relative;
+    margin: 20px;
 }
+
+.products-wrapper .product-inner-wrap {
+    border: 1px solid #e0e0e0;
+    padding: 20px 20px 30px;
+    margin-bottom: 20px;
+}
+
+.product-inner-wrap .product-name {
+    text-align: center;
+    margin-top: 5px;
+}
+
+.product-inner-wrap .product-bottom {
+    width: 100%;
+    float: left;
+}
+
+.product-bottom .category-name {
+    float: left;
+}
+
+.product-bottom .price {
+    float: right;
+}
+
+.form-wrapper, .table-wrapper, .details-wrapper {
+    float: left;
+    width: 100%;
+    margin: 20px;
+}
+
+.form-wrapper .submit-button {
+    width: 100%;
+}
+.form-wrapper .submit-button button {
+    float: right;
+}
+.details-wrapper .details-wrapper-inner {
+    width: 100%;
+    float: left;
+    margin-top: 20px;
+}
+.details-wrapper .category-info {
+    width: 100%;
+    float: left;
+}
+.details-wrapper .span-category {
+    float: left;
+    min-width: 100px;
+    font-weight: 500;
+}
+
+.details-wrapper .span-description {
+    width: 100%;
+    float: left;
+    font-weight: 500;
+}
+.details-wrapper .edit-button-wrap {
+    width: 100%;
+}
+
+.details-wrapper .edit-button-wrap .edit-button-btn {
+    float: right;
+    padding: 5px 30px;
+    border-radius: 5px;
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+}
+
+.edit-button-wrap .edit-button-btn:hover {
+    color: #fff;
+    background-color: #0069d9;
+    border-color: #0062cc;
+}
+

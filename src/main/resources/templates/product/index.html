@@ -5,9 +5,24 @@
 <!--<img th:src="${img}"/>-->
 <div class="header" th:insert="/fragments/header :: head"></div>
 <div class="container">
-    <div class="row">
-        <div class="col-md-6">
-            <h1>hello world</h1>
+    <div class="products-wrapper">
+        <div class="row">
+            <div class="col-md-4" th:each="product: ${products}">
+                <div class="product-inner-wrap">
+                    <div class="image-wrap">
+                        <a  th:href="@{/product(id=${product.id})}">
+                            <img th:src="@{/images/no-image.jpg}" th:alt="no-img" style="width: 300px">
+                        </a>
+                    </div>
+                    <h5 class="product-name" th:text="${product.name}"></h5>
+
+                    <div class="product-bottom">
+                        <p th:text="${product.category.name}" class="category-name"></p>
+                        <span th:text="|$${#numbers.formatDecimal(product.price, 0, 'COMMA', 2, 'POINT')}|"
+                              class="price"></span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

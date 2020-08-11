@@ -5,11 +5,28 @@
 <!--<img th:src="${img}"/>-->
 <div class="header" th:insert="/fragments/header :: head"></div>
 <div class="container">
-    <div class="row">
-        <div class="col-md-6">
-            <h1>Add new category</h1>
+<div class="form-wrapper">
+    <form th:action="@{/create-category}" th:object="${category}"  method="post">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Name: </label>
+                    <input type="text" th:field="*{name}"  class="form-control"  placeholder="Enter category name">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="description">Description:</label>
+                    <textarea class="form-control" th:field="*{description}" rows="5" id="description"></textarea>
+                </div>
+
+            </div>
         </div>
-    </div>
+        <div class="submit-button">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</div>
 </div>
 <footer th:insert="/fragments/footer :: footer"></footer>
 </body>

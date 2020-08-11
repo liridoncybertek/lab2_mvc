@@ -48,6 +48,7 @@ public class ProductController {
     @GetMapping("/add-product")
     public String addProduct(Model model) {
         model.addAttribute("categories", categoryDAO.readAllCategories());
+        model.addAttribute("product", new Product());
         return "product/add-product";
     }
 
@@ -60,8 +61,10 @@ public class ProductController {
      */
     @PostMapping("/create-product")
     public String createProduct(@ModelAttribute("product") Product product, Model model) {
-        productDAO.create(product);
-        model.addAttribute("products", productDAO.readAllProducts());
+        System.out.println("product is: " + product);
+        System.out.println("product is: " + model);
+//        productDAO.create(product);
+//        model.addAttribute("products", productDAO.readAllProducts());
         return "redirect:/";
     }
 
@@ -73,7 +76,7 @@ public class ProductController {
      * @return product details.
      */
     @GetMapping("/product")
-    public String productDetails(@RequestParam("id") Long id, Model model) {
+    public String productDetails(@RequestParam("id") Integer id, Model model) {
         model.addAttribute("product", productDAO.readById(id));
         return "product/product-details";
     }
@@ -85,8 +88,9 @@ public class ProductController {
      * @param model model
      * @return edit product
      */
-    @GetMapping("/edit-product/{id}")
-    public String editProduct(@PathVariable("id") Long id, Model model) {
+    @GetMapping("/edit-product")
+    public String editProduct(@RequestParam("id") Integer id, Model model) {
+        model.addAttribute("product", productDAO.readById(id));
         model.addAttribute("categories", categoryDAO.readAllCategories());
         return "product/edit-product";
     }
@@ -98,8 +102,8 @@ public class ProductController {
      * @param model   model
      * @return updatedProduct.
      */
-    @PutMapping("/update-product/")
-    public String updateProduct(@ModelAttribute("product") Product product, Model model) {
+    @PutMapping("/update-product")
+    public String updateProduct(@RequestParam("id") Integer id, @ModelAttribute("product") Product product, Model model) {
         productDAO.update(product.getId(), product);
         model.addAttribute("products", productDAO.readAllProducts());
         return "redirect:/";

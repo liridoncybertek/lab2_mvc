@@ -1,10 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="/fragments/links :: links"></head>
 <body>
-
+<!--<img th:src="${img}"/>-->
+<div class="header" th:insert="/fragments/header :: head"></div>
+<div class="container">
+    <div class="details-wrapper">
+        <div class="edit-button-wrap">
+            <a class="edit-button-btn" th:href="@{/edit-product(id=${product.id})}">Edit</a>
+        </div>
+        <div class="details-wrapper-inner">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="category-info">
+                        <span class="span-category">Id:</span>
+                        <span class="category-value" th:text="${product.id}"></span>
+                    </div>
+                    <div class="category-info">
+                        <span class="span-category">Name:</span>
+                        <span class="category-value" th:text="${product.name}"></span>
+                    </div>
+                    <div class="category-info">
+                        <span class="span-category">Category:</span>
+                        <span class="category-value" th:text="${product.category.name}"></span>
+                    </div>
+                    <div class="category-info">
+                        <span class="span-category">Price:</span>
+                        <span class="category-value" th:text="|$${#numbers.formatDecimal(product.price, 0, 'COMMA', 2, 'POINT')}|"></span>
+                    </div>
+                    <div class="category-info">
+                        <span class="span-category">Quantity:</span>
+                        <span class="category-value" th:text="${product.quantity}"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="span-description">Description:</div>
+                    <p class="category-desc" th:text="${product.description}"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer th:insert="/fragments/footer :: footer"></footer>
 </body>
 </html>

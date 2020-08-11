@@ -22,37 +22,39 @@ public class CategoryController {
     }
 
     @GetMapping("/category-details")
-    public String categoryDetails(@RequestParam("id") Long id, Model model) {
+    public String categoryDetails(@RequestParam("id") Integer id, Model model) {
         model.addAttribute("category", categoryDAO.readById(id));
         return "category/category-details";
     }
 
     @GetMapping("/add-category")
-    public String addCategory() {
+    public String addCategory(Model model) {
+        model.addAttribute("category", new Category());
         return "category/add-category";
     }
 
-    @GetMapping("/edit-category/{id}")
-    public String editCategory(@PathVariable("id") Long id) {
+    @GetMapping("/edit-category")
+    public String editCategory(@RequestParam("id") Integer id, Model model) {
+        model.addAttribute("category", categoryDAO.readById(id));
         return "category/edit-category";
     }
 
     @PostMapping("/create-category")
-    public String createCategory(@ModelAttribute("category")Category category, Model model) {
+    public String createCategory(@ModelAttribute("category") Category category, Model model) {
         categoryDAO.create(category);
         model.addAttribute("categories", categoryDAO.readAllCategories());
         return "redirect:/categories";
     }
 
-    @PutMapping("update-category")
-    public String updateCategory(@ModelAttribute("category") Category category, Model model) {
-        categoryDAO.update(category.getId(),category);
+    @PostMapping("/update-category")
+    public String updateCategory(@RequestParam("id") Integer id, @ModelAttribute("category") Category category, Model model) {
+        categoryDAO.update(id, category);
         model.addAttribute("categories", categoryDAO.readAllCategories());
         return "redirect:/categories";
     }
 
-    @DeleteMapping("/delete-category")
-    public String deleteCategory(@RequestParam("id") Long id) {
+    @GetMapping("/delete-category")
+    public String deleteCategory(@RequestParam("id") Integer id) {
         categoryDAO.delete(id);
         return "redirect:/categories";
     }
